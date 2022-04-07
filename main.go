@@ -9,11 +9,9 @@ func main() {
 	var conferenceName = "Go Conference"
 	const conferenceTickets int = 50
 	var remainingTickets uint = 50
-	var bookings []string
+	bookings := []string{}
 
-	fmt.Printf("Welcome to %v booking application\n", conferenceName)
-	fmt.Printf("We have total of %v tickets and %v are available\n", conferenceTickets, remainingTickets)
-	fmt.Println("Get your tickets here to attend!")
+	greetUsers(conferenceName, conferenceTickets, remainingTickets)
 
 	for {
 
@@ -45,13 +43,7 @@ func main() {
 			fmt.Printf("Thank you %v %v for booking %v tickets. You will receive a confirmation email at %v\n", firstName, lastName, userTickets, email)
 			fmt.Printf("%v tickets remaining for %v\n", remainingTickets, conferenceName)
 
-			firstNames := []string{}
-			for _, booking := range bookings {
-				var names = strings.Fields(booking)
-				firstNames = append(firstNames, names[0])
-			}
-
-			fmt.Printf("The first name(s) of our booked guest(s) %v\n", firstNames)
+			printFirstNames(bookings)
 
 			if remainingTickets == 0 {
 				// end program
@@ -62,7 +54,7 @@ func main() {
 		} else {
 
 			if !isValidName {
-			fmt.Printf("The first or last name you entered is too short. Please Try Again. \n")
+				fmt.Printf("The first or last name you entered is too short. Please Try Again. \n")
 			}
 			if !isValidEmail {
 				fmt.Printf("Email address does not contain an @ sign. Please Try Again. \n")
@@ -72,4 +64,20 @@ func main() {
 			}
 		}
 	}
+}
+
+func greetUsers(confName string, confTickets int, remainingTickets uint) {
+	fmt.Printf("Welcome to %v booking application\n", confName)
+	fmt.Printf("We have total of %v tickets and %v are available\n", confTickets, remainingTickets)
+	fmt.Println("Get your tickets here to attend!")
+}
+
+func printFirstNames(bookings []string) {
+	firstNames := []string{}
+	for _, booking := range bookings {
+		var names = strings.Fields(booking)
+		firstNames = append(firstNames, names[0])
+	}
+
+	fmt.Printf("The first name(s) of our booked guest(s) %v\n", firstNames)
 }
