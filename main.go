@@ -1,8 +1,10 @@
 package main
 
+
 import (
 	"fmt"
 	"strings"
+	"booking-app/helper"
 )
 
 // variables shared to main and all functions are package level variables.
@@ -21,7 +23,7 @@ func main() {
 	for {
 
 		firstName, lastName, email, userTickets := getUserInput()
-		isValidName, isValidEmail, isValidTicketNumber := validateUserInput(firstName, lastName, email, userTickets)
+		isValidName, isValidEmail, isValidTicketNumber := helper.ValidateUserInput(firstName, lastName, email, userTickets, remainingTickets)
 		bookTicket(userTickets, firstName, lastName, email)
 
 		if isValidName && isValidEmail && isValidTicketNumber {
@@ -66,13 +68,6 @@ func getFirstNames() []string {
 
 }
 
-func validateUserInput(firstName string, lastName string, email string, userTickets uint) (bool, bool, bool) {
-	isValidName := len(firstName) >= 2 && len(lastName) >= 2
-	isValidEmail := strings.Contains(email, "@")
-	isValidTicketNumber := userTickets > 0 && userTickets <= remainingTickets
-	return isValidName, isValidEmail, isValidTicketNumber
-
-}
 
 // no parameters because user input
 func getUserInput() (string, string, string, uint) {
